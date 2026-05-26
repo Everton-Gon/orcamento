@@ -2,6 +2,8 @@ import { brl } from "@/features/budget/data";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useBudgetSession } from "@/features/budget/BudgetSessionContext";
+import { REQUEST_TYPE_LABELS } from "@/features/budget/lib/requestTypes";
+import { getCurrentWorkflowStep } from "@/features/budget/lib/workflow";
 
 export function ApprovalsList({ limit = 4 }) {
   const { approvals } = useBudgetSession();
@@ -21,7 +23,8 @@ export function ApprovalsList({ limit = 4 }) {
         {items.map((a) => (
           <Link
             key={a.id}
-            to={`/aprovacoes?req=${a.id}`}
+            to="/aprovacoes"
+            search={{ req: a.id }}
             className="block w-full text-left p-4 hover:bg-muted/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <div className="flex items-center justify-between mb-1">
@@ -38,10 +41,20 @@ export function ApprovalsList({ limit = 4 }) {
                 {a.status}
               </span>
             </div>
+            <p className="text-[10px] text-muted-foreground mb-0.5">
+              {REQUEST_TYPE_LABELS[a.tipo] ?? "Solicitação"}
+            </p>
             <p className="text-sm font-semibold text-foreground">{a.titulo}</p>
             <p className="text-xs text-muted-foreground">{a.centro}</p>
+            {getCurrentWorkflowStep(a) ? (
+              <p className="text-[10px] text-primary mt-1">
+                Aguarda: {getCurrentWorkflowStep(a).nome}
+              </p>
+            ) : null}
             <div className="flex items-center justify-between mt-2">
-              <span className="text-sm font-bold tabular-nums">{brl(a.valor)}</span>
+              <span className="text-sm font-bold tabular-nums">
+                {a.valor > 0 ? brl(a.valor) : "—"}
+              </span>
               <span className="text-[11px] text-muted-foreground">Vence {a.prazo}</span>
             </div>
           </Link>

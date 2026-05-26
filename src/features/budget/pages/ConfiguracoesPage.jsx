@@ -4,6 +4,7 @@ import { User, ShieldCheck, Bell, Save } from "lucide-react";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { useAuth, ROLE_LABELS, roleToJobTitle } from "@/contexts/AuthContext";
 
 const LS_KEY = "axiom-budget-settings-v1";
 
@@ -28,6 +29,7 @@ function loadSettings() {
 }
 
 export function ConfiguracoesPage() {
+  const { user } = useAuth();
   const [name, setName] = useState(defaultSettings.name);
   const [role, setRole] = useState(defaultSettings.role);
   const [email, setEmail] = useState(defaultSettings.email);
@@ -36,12 +38,18 @@ export function ConfiguracoesPage() {
 
   useEffect(() => {
     const s = loadSettings();
-    setName(s.name);
-    setRole(s.role);
-    setEmail(s.email);
     setNotifReq(s.notifReq);
     setNotifReport(s.notifReport);
-  }, []);
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      setRole(roleToJobTitle(user.role));
+    } else {
+      setName(s.name);
+      setRole(s.role);
+      setEmail(s.email);
+    }
+  }, [user]);
 
   const handleSave = () => {
     const payload = {
@@ -60,7 +68,11 @@ export function ConfiguracoesPage() {
       <PageHeader
         eyebrow="Administração"
         title="Configurações"
-        description="Parâmetros gerais, matriz de aprovações e políticas de governança."
+        description={
+          user
+            ? `Sessão ativa como ${user.email} (${ROLE_LABELS[user.role]}). Dados sincronizados com o login.`
+            : "Parâmetros gerais, matriz de aprovações e políticas de governança."
+        }
         actions={
           <button
             type="button"

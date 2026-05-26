@@ -43,7 +43,7 @@ export function DashboardPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Visão Geral · EXERCÍCIO 2024"
+        eyebrow="Visão Geral · EXERCÍCIO 2026"
         title="Painel de Controle Orçamentário"
         description="Consolidação de todos os centros de custo, aprovações pendentes e tendência previsto vs realizado."
         actions={
@@ -60,7 +60,7 @@ export function DashboardPage() {
               onClick={() => setNovaOpen(true)}
               className="px-3 h-9 text-xs font-semibold bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors flex items-center gap-1.5"
             >
-              <Plus className="h-3.5 w-3.5" /> Nova requisição
+              <Plus className="h-3.5 w-3.5" /> Nova solicitação
             </button>
           </>
         }

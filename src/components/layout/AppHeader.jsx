@@ -67,7 +67,7 @@ export function AppHeader() {
             <span className="text-muted-foreground">Controladoria</span>
             <span className="text-border">/</span>
             <span className="font-semibold text-foreground tracking-tight">
-              EXERCÍCIO 2024
+              EXERCÍCIO 2026
             </span>
           </div>
         </div>

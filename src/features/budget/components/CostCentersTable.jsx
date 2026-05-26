@@ -22,7 +22,7 @@ function statusFor(pct) {
       label: "Atenção",
       className: "bg-warning/15 text-warning-foreground",
     };
-  return { label: "On track", className: "bg-success/15 text-success" };
+  return { label: "Normal", className: "bg-success/15 text-success" };
 }
 
 function barColor(pct) {
@@ -147,7 +147,7 @@ export function CostCentersTable({
         <div>
           <h3 className="font-bold text-foreground">Performance por Centro de Custo</h3>
           <p className="text-xs text-muted-foreground mt-0.5">
-            Drill-down por departamento · exercício 2024
+            Drill-down por departamento · exercício 2026
             {searchText ? (
               <span className="block mt-1 text-foreground/80">
                 Pesquisa active: &quot;{searchText}&quot; · {sortedRows.length} resultado(s)
